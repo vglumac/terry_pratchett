@@ -83,6 +83,7 @@ header>nav>ul>li:hover>ul {
     background-color: #fff;
     width: 100%;
     text-align: center;
+    z-index: 2;
 }
 
 header>nav>ul>li>ul>li:hover {
@@ -106,11 +107,78 @@ h2 {
     padding-bottom: 20px;
 }
 
+.legend-list {
+    display: flex;
+    flex-basis: 0;
+    height: 80px;
+    width: 720px;
+    margin: 0 auto;
+    margin-top: 80px;
+    padding: 5px;
+    border: 1px dotted black;
+    background-color: rgba(236, 245, 243, 0.808);
+    /*position: relative;*/
+}
+
+.legend-list div {
+    flex-grow: 1;
+}
+
+.legend-list-item {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: 1px;
+    border-radius: 50%; 
+    text-align: center;
+    font-size: 11px;
+    font-weight: 400;
+    box-sizing: border-box;
+}
+
+.legend-list-item > p {
+    flex-grow: 1;
+    align-self: center;
+}
+
+.legend-list div:first-child > p {
+    font-weight: 700;
+    font-size: 13px;
+}
+
+.legend-list div:nth-child(2) {
+    background-color: rgb(252, 203, 130);
+}
+
+.legend-list div:nth-child(3) {
+    background-color: #f2f3b9;
+}
+
+.legend-list div:nth-child(4) {
+    background-color: #ccadf7;
+}
+
+.legend-list div:nth-child(5) {
+    background-color: #CBF3B9;
+}
+
+.legend-list div:nth-child(6) {
+    background-color: #ff726e;
+}
+
+.legend-list div:nth-child(7) {
+    background-color: #b9ebf3;
+}
+
+
+
 .readingOrder {
     display: grid;
-    margin: 100px auto;
-    width: 99%;
-    grid-template: "row1col1 row1col2 row1col3 row1col4 row1col5 row1col6 row1col7 row1col8 row1col9 row1col10 row1col11"
+    margin: 80px auto;
+    width: 100%;
+    grid-template: "row1col1 row1col2 row1col34 row1col34 row1col5 row1col6 row1col7 row1col8 row1col9 row1col10 row1col11"
                    "row2col1 row2col2 row2col3 row2col4 row2col5 row2col6 row2col7 row2col8 row2col9 row2col10 row2col11"
                    "row3col1 row3col2 row3col3 row3col4 row3col5 row3col6 row3col7 row3col8 row3col9 row3col10 row3col11"
                    "row4col1 row4col3 row4col3 row4col4 row4col5 row4col6 row4col7 row4col8 row4col9 row4col10 row4col11"
@@ -124,12 +192,13 @@ h2 {
     grid-template-rows: 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw;
     align-content: stretch;
     justify-content: stretch;
+    box-sizing: border-box;
 }
 
 .r1c1   { grid-area: row1col1;}
 .r1c2   { grid-area: row1col2;}
-.r1c3   { grid-area: row1col3;}
-.r1c4   { grid-area: row1col4;}
+.r1c34   { grid-area: row1col34;}
+
 .r1c5   { grid-area: row1col5;}
 .r1c6   { grid-area: row1col6;}
 .r1c7   { grid-area: row1col7;}
@@ -240,17 +309,203 @@ h2 {
 .r10c10 { grid-area: row10col10;}
 .r10c11 { grid-area: row10col11;}
 
+.circle {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
 .book {
     display: flex;
+    width: 90%;
+    height: 90%;
+    margin: 5%;
     align-items: center; /* Vertical center alignment */
-    justify-content: center;
-  /*  border: 1px solid black; */
+    justify-content: center; 
+    background-color: #f2f3b9;
     border-radius: 50%; 
     text-align: center;
     font-size: 11px;
-    font-weight: 600;
-    margin: 2px; 
-    
+    font-weight: 700;
+    padding: 2%; 
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+.book > a {
+    flex-grow: 1;
+}
+
+.line-full--legend {
+    position: absolute;
+    z-index: 0;
+    height: 85%;
+    width: 2px;
+    bottom: 25%;
+    left: 5%;
+    border-right: 2px solid rgb(160, 3, 3);
+    box-sizing: border-box;
+    transform-origin: center bottom;
+}
+
+.line-full--legend {
+    transform: rotate(90deg);
+}
+
+.line-dashed--legend {
+    position: absolute;
+    z-index: 0;
+    height: 85%;
+    width: 2px;
+    left: 5%;
+    bottom: 25%;
+    border-right: 2px dashed rgb(160, 3, 3);
+    box-sizing: border-box;
+    transform-origin: center bottom;
+}
+
+.line-dashed--legend {
+    transform: rotate(90deg);
+}
+
+.readingOrder .r1c34 > div:first-child {
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    padding: 15%;
+    transform-origin: 40% 70%;
+    font-weight: 500;
+    font-family: fantasy;
+}
+
+@keyframes pulse {
+    0% {
+      box-shadow: 0 0 0px #555;
+    }
+    100% {
+      box-shadow: 0 0 20px #555;
+    }
+  }
+
+.arrow {
+    position: absolute;
+    z-index: 0;
+    height: 20px;
+    width: 20px;
+    left: 55%;
+    top: 75%;
+    background: linear-gradient(45deg, transparent 40%, #000 40%, #000 60%, transparent 60%);
+    border: solid black;
+    border-width: 0 5px 5px 0;
+    transform-origin: center right;
+    transform: rotate(10deg);
+}
+
+.line-full {
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 2px;
+    left: 50%;
+    top: -50%;
+    background-color: black;
+    border-right: 2px solid rgb(160, 3, 3);
+    box-sizing: border-box;
+    transform-origin: center bottom;
+}
+
+
+
+.line-dashed {
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 2px;
+    left: 50%;
+    top: -50%;
+    border-right: 2px dashed rgb(160, 3, 3);
+    box-sizing: border-box;
+    transform-origin: center bottom;
+}
+
+/* 45deg angle */
+.line-full--45 {
+    transform: rotate(45deg);
+}
+
+.line-full--30 {
+    transform: rotate(30deg);
+}
+
+/* 90deg angle */
+.line-full--90 {
+    transform: rotate(90deg);
+}
+  
+/* 135deg angle */
+.line-full--135 {
+    transform: rotate(135deg);
+}
+  
+/* 180deg angle */
+.line-full--180 {
+    transform: rotate(180deg);
+}
+  
+/* 225deg angle */
+.line-full--225 {
+    transform: rotate(225deg);
+}
+  
+/* 270deg angle */
+.line-full--270 {
+    transform: rotate(270deg);
+}
+  
+/* 315deg angle */
+.line-full--315 {
+    transform: rotate(315deg);
+}
+
+/* 45deg angle */
+.line-dashed--45 {
+    transform: rotate(45deg);
+}
+
+/* 90deg angle */
+.line-dashed--90 {
+    transform: rotate(90deg);
+}
+  
+/* 135deg angle */
+.line-dashed--135 {
+    transform: rotate(135deg);
+}
+
+.line-dashed--150 {
+    transform: rotate(150deg);
+}
+  
+/* 180deg angle */
+.line-dashed--180 {
+    transform: rotate(180deg);
+}
+  
+/* 225deg angle */
+.line-dashed--225 {
+    transform: rotate(225deg);
+}
+  
+/* 270deg angle */
+.line-dashed--270 {
+    transform: rotate(270deg);
+}
+  
+/* 315deg angle */
+.line-dashed--315 {
+    transform: rotate(315deg);
 }
 
 .series {
@@ -260,50 +515,27 @@ h2 {
     color: rgb(160, 3, 3);
     font-weight: 700;
     font-style: italic;
+    box-sizing: border-box;
 }
 
 .science {
-  /*  background: radial-gradient( circle at 50% 50%, #ff726e 65%, transparent 65%),
-                linear-gradient(to top, transparent 49%,  rgb(160, 3, 3) 49%,  rgb(160, 3, 3) 51%, transparent 51% );
-  */              
-
-
-    
     background-color: #ff726e; 
-
 }
 
-.rincewind {
+.first {
     background-color: rgb(252, 203, 130);
 }
 
-.ind {
-    background-color: #0547fc70;
-}
-
-.watch {
-    background-color: #f2f3b9;
-}
-
-.death {
-    background-color: #eca5f7;
-}
-
 .tiffany {
-    background-color: #ae7cf560;
-}
-
-.ancient {
-    background-color: #f57c7c70;
-}
-
-.witch {
-    background-color: #0f712570;
+    background-color: #ccadf7;
 }
 
 .short-story {
     background-color: #CBF3B9; 
-      
+}
+
+.r6c9 > .book { 
+    font-size: 10px;
 }
 
 .illustrated {
@@ -311,8 +543,57 @@ h2 {
 }
 
 .two-col {
-    height: 8vw;
-    width: 8vw;
-    margin-top: 0;
+    height: 7.8vw;
+    width: 7.8vw;
+    margin: auto;
     justify-self: center;
 }
+
+.circle > .book > a {
+    text-decoration: none;
+    color: #000;
+}
+
+.r2c4 .book {
+    animation: pulse 2s infinite alternate ease-in-out;
+}
+
+.book:hover {
+    box-shadow: 0 0 15px #555;
+}
+
+/*
+
+@keyframes jiggle {
+    0% {
+        transform: rotate(5deg);
+    }
+
+    25% {
+        transform: rotate(5deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+    
+    100% {
+        transform: rotate(-5deg);
+    }
+}
+
+@keyframes underline {
+    0% {
+        font-style: normal;
+        text-decoration: none;
+    }
+    100% {
+        font-style: italic;
+        text-decoration: underline;
+    }
+}
+
+.r1c34 > div:first-child {
+    animation: jiggle 0.5s 1 ease;
+}
+*/
