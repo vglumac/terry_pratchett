@@ -10,33 +10,29 @@
 </div> */
 
 function onClick() {
-    const bookTitles = document.querySelectorAll('div.book');
-    const books = JSON.parse(JSON.stringify(booksInfo));
 
-    let bookTitleModal = '';
-    let bookDescriptionModal = '';
-    let bookCoverModal = '';
+    const bookTitles = document.querySelectorAll('div.book');
+    let i = 1;
+    bookTitles.forEach(b => {
+        b.dataset.id = i;
+        i++
+    });
+
+    const booksByTitle = {};
+    booksInfo.forEach(bookInfo => {
+        booksByTitle[bookInfo.title] = bookInfo;
+    });
 
     for (let bookTitle of bookTitles) {
-        bookTitle.addEventListener('click', (e) => {
-            for (let i=0; i<books.length; i++) {
-            if (e.target.innerText == books[i].title) {
-                bookTitleModal = books[i].title;
-                bookDescriptionModal = books[i].short;
-                bookCoverModal = books[i].cover;
-                createModal(bookTitleModal, bookDescriptionModal, bookCoverModal)
-            } else {
-                console.log('error');
-            }
-            }
-        } )
-    }
 
+        bookTitle.addEventListener('click', (e) => {
+            const foundBook = booksByTitle[e.target.innerText];
+            createModal(foundBook.title, foundBook.short, foundBook.cover, bookTitle.dataset.id);
+        });
+    }
 }
 
-function createModal(bookName, bookDescription, bookCover) {
-    let pageBlur = document.createElement('div');
-    pageBlur.classList.add('page-blur');
+function createModal(bookName, bookDescription, bookCover, index) {
 
     let modal = document.createElement('div');
     modal.classList.add('modal');
@@ -44,26 +40,155 @@ function createModal(bookName, bookDescription, bookCover) {
                             <img src="${bookCover}" alt="${bookName}">
                             <h3>${bookName}</h3>
                             <p>${bookDescription}</p>
-                            <a href="#" id="button-modal-back">Back</a>
-                            <a href="#" id="button-modal-moreInfo">More info</a>
+                            <div id="exit-button">X</div>
+                            <div id="button-modal-back">PREVIOUS</div>
+                            <div id="button-modal-moreInfo">NEXT</div>
                         </div>`;
 
-    let buttonModalBack = modal.querySelector('#button-modal-back');
-    let buttonModalInfo = modal.querySelector('#button-modal-moreInfo');
+    modal.querySelector('.modal__container').dataset.currentIndex = index;
 
-    buttonModalBack.addEventListener('click', () => {
-        pageBlur.remove();
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            modal.remove();
+        }
+    });
+
+    modal.addEventListener('click', () => {
         modal.remove();
     });
 
-    buttonModalInfo.addEventListener('click', () => {
-        callbackMoreInfo();
-        pageBlur.remove();
+    modal.querySelector('.modal__container').addEventListener('click', e => {
+        e.stopPropagation();
+    });
+
+    modal.querySelector('#exit-button').addEventListener('click', () => {
         modal.remove();
     });
 
-    document.querySelector('body').appendChild(pageBlur);
     document.querySelector('body').appendChild(modal);
-}
 
-onClick();
+    let buttonModalPrev = document.querySelector('#button-modal-back');
+    let buttonModalNext = document.querySelector('#button-modal-moreInfo');
+    buttonModalPrev.addEventListener('click', openPrevious);
+    buttonModalNext.addEventListener('click', openNext);
+
+    switch (modal.querySelector('.modal__container').dataset.currentIndex) {
+        case '1':
+            buttonModalPrev.style.backgroundColor = '#B8B8B8';
+            buttonModalPrev.style.cursor = 'default';
+            break;
+        case '55':
+            buttonModalNext.style.backgroundColor = '#B8B8B8';
+            buttonModalNext.style.cursor = 'default';
+            break;
+    }
+
+
+
+            // switch (modal.querySelector('.modal__container').dataset.currentIndex) {
+            //     case '1':
+            //         buttonModalNext.addEventListener('click', openNext);
+            //         buttonModalPrev.removeEventListener('click', openPrevious);
+            //         buttonModalPrev.style.backgroundColor = '#B8B8B8';
+            //         buttonModalPrev.style.cursor = 'default';
+
+            //     case '2':
+            //         buttonModalPrev.addEventListener('click', openPrevious);
+            //         break;
+            //     case '54':
+            //         buttonModalPrev.addEventListener('click', openPrevious);
+            //         buttonModalNext.addEventListener('click', openNext);
+            //     case '55':
+            //         buttonModalPrev.addEventListener('click', openPrevious);
+            //         buttonModalNext.removeEventListener('click', openPrevious);
+            //         buttonModalNext.style.backgroundColor = '#B8B8B8';
+            //         buttonModalNext.style.cursor = 'default';
+            //         break;
+            //     default:
+            //         buttonModalPrev.addEventListener('click', openPrevious);
+            //         buttonModalNext.addEventListener('click', openNext);
+            // }
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key == "ArrowRight") {
+                    openNext();
+                }
+            });
+            window.addEventListener('keydown', (e) => {
+                if (e.key == "ArrowLeft") {
+                    openPrevious();
+                }
+            });
+
+            var offsetY = window.pageYOffset;
+            document.querySelector('.main').style.top = `${offsetY}px`;
+
+    }
+
+    function openPrevious() {
+        const books = {};
+        booksInfo.forEach(bookInfo => {
+            books[bookInfo.title] = bookInfo;
+        });
+
+        let currentIndex = document.querySelector('.modal__container').dataset.currentIndex;
+        let buttonModalPrev = document.querySelector('#button-modal-back');
+        let buttonModalNext = document.querySelector('#button-modal-moreInfo');
+
+        let title = document.querySelector('.modal__container h3');
+        let img = document.querySelector('.modal__container img');
+        let short = document.querySelector('.modal__container p');
+
+        buttonModalNext.style.backgroundColor = 'var(--accent-color-green)';
+        buttonModalNext.style.cursor = 'pointer';
+
+        let prevBookIndex = Number(currentIndex) - 1;
+        let prevBook = document.querySelector(`[data-id="${prevBookIndex}"]`);
+
+        const foundPrevBook = books[prevBook.innerText];
+        title.innerText = foundPrevBook.title;
+        img.src = foundPrevBook.cover;
+        img.alt = `${foundPrevBook.title}`;
+        short.innerText = foundPrevBook.short;
+        document.querySelector('.modal__container').dataset.currentIndex = prevBook.dataset.id;
+        if (document.querySelector('.modal__container').dataset.currentIndex == '1') {
+            buttonModalPrev.style.backgroundColor = '#B8B8B8';
+            buttonModalPrev.style.cursor = 'default';
+        }
+
+    }
+
+    function openNext() {
+        const books = {};
+        booksInfo.forEach(bookInfo => {
+            books[bookInfo.title] = bookInfo;
+        });
+
+        let currentIndex = document.querySelector('.modal__container').dataset.currentIndex;
+        let buttonModalNext = document.querySelector('#button-modal-moreInfo');
+        let buttonModalPrev = document.querySelector('#button-modal-back');
+        let title = document.querySelector('.modal__container h3');
+        let img = document.querySelector('.modal__container img');
+        let short = document.querySelector('.modal__container p');
+
+        buttonModalPrev.style.backgroundColor = 'var(--accent-color-green)';
+        buttonModalPrev.style.cursor = 'pointer';
+
+        let nextBookIndex = Number(currentIndex) + 1;
+        let nextBook = document.querySelector(`[data-id="${nextBookIndex}"]`);
+
+        const foundNextBook = books[nextBook.innerText];
+        title.innerText = foundNextBook.title;
+        img.src = foundNextBook.cover;
+        img.alt = `${foundNextBook.title}`;
+        short.innerText = foundNextBook.short;
+        document.querySelector('.modal__container').dataset.currentIndex = nextBook.dataset.id;
+
+        if (document.querySelector('.modal__container').dataset.currentIndex == '55') {
+            buttonModalNext.style.backgroundColor = '#B8B8B8';
+            buttonModalNext.style.cursor = 'default';
+        }
+    }
+
+
+    onClick();
