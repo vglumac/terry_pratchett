@@ -627,18 +627,6 @@ h2 {
     animation: pulse 2s infinite alternate cubic-bezier(0.42, -0.1, 0, 1.79);
 }
 
-.page-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #FFF;
-    opacity: 0.6;
-    backdrop-filter: blur(10px);
-    z-index: 10;
-}
-
 .modal {
     position: fixed;
     top: 0;
@@ -649,6 +637,7 @@ h2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal__container {
@@ -664,7 +653,9 @@ h2 {
     border: 2px solid black;
     padding: 1.5rem;
     background-color: #FFF;
-}
+    position: relative;
+    z-index: 20;
+   }
 
 .modal__container>img {
     width: 20vw;
@@ -684,30 +675,45 @@ h2 {
     text-align: justify;
 }
 
-.modal__container>a:first-child {
+#button-modal-back {
     grid-area: back;
 }
 
-.modal__container>a:last-child {
+#button-modal-moreInfo {
     grid-area: info;
 }
 
-.modal__container>a {
-    display: inline-block;
+#button-modal-back,
+#button-modal-moreInfo {
     width: 100%;
     font-size: 0.7rem;
-    text-decoration: none;
     color: #FFF;
     background-color: var(--accent-color-green);
-    padding: 1.3em 4em;
+    padding: 1.3em;
     border-radius: 100px;
     align-self: center;
     text-align: center;
-    text-transform: uppercase;
     font-weight: 700;
+    cursor: pointer;
 }
 
-.modal__container>a:hover,
-.modal__container>a:focus {
+#button-modal-back:hover,
+#button-modal-moreInfo:hover,
+#button-modal-back:focus,
+#button-modal-moreInfo:focus {
     opacity: 0.8;
+}
+
+#exit-button {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    border-radius: 50%;
+    background-color: var(--accent-color-green);
+    color: white;
+    font-weight: 900;
+    padding: 0.5em;
+    line-height: 1em;
+    text-align: center;
+    cursor: pointer;
 }
