@@ -683,26 +683,6 @@ h2 {
     grid-area: info;
 }
 
-#button-modal-back,
-#button-modal-moreInfo {
-    width: 100%;
-    font-size: 0.7rem;
-    color: #FFF;
-    background-color: var(--accent-color-green);
-    padding: 1.3em;
-    border-radius: 100px;
-    align-self: center;
-    text-align: center;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-#button-modal-back:hover,
-#button-modal-moreInfo:hover,
-#button-modal-back:focus,
-#button-modal-moreInfo:focus {
-    opacity: 0.8;
-}
 
 #exit-button {
     position: absolute;
