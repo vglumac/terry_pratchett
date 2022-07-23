@@ -49,11 +49,13 @@ function createModal(foundBook, index, bookTitles, booksByTitle) {
     window.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             modal.remove();
+            window.removeEventListener('keydown', keyDownHandler);
         }
     });
 
     modal.addEventListener('click', () => {
         modal.remove();
+        window.removeEventListener('keydown', keyDownHandler);
     });
 
     modal.querySelector('.modal__container').addEventListener('click', e => {
@@ -62,6 +64,7 @@ function createModal(foundBook, index, bookTitles, booksByTitle) {
 
     modal.querySelector('#exit-button').addEventListener('click', () => {
         modal.remove();
+        window.removeEventListener('keydown', keyDownHandler);
     });
 
     document.querySelector('body').appendChild(modal);
@@ -96,7 +99,29 @@ function openModal(index, bookTitles, booksByTitle) {
             buttonPrev.setAttribute('disabled', '');
         }
     });
+
+    window.addEventListener('keydown', keyDownHandler);
+    function keyDownHandler(e) {
+        if (e.key === 'ArrowRight') {
+            index++;
+            changeModal(index, bookTitles, booksByTitle, buttonNext, buttonPrev);
+            if (buttonPrev.getAttribute('disabled') === '') {
+                buttonPrev.removeAttribute('disabled');
+            }
+        }
+        else if (e.key === 'ArrowLeft') {
+            index--;
+            changeModal(index, bookTitles, booksByTitle, buttonNext, buttonPrev);
+            if (buttonNext.getAttribute('disabled') === '') {
+                buttonNext.removeAttribute('disabled');
+            }
+            if (index === 0) {
+                buttonPrev.setAttribute('disabled', '');
+            }
+        }
+    }
 }
+
 
 function changeModal(index, bookTitles, booksByTitle, buttonNext, buttonPrev) {
     let title = document.querySelector('.modal__container h3');
