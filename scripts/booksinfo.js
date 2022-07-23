@@ -559,7 +559,7 @@ var booksInfo = [
         short: "Praesent non odio eget leo finibus iaculis. Mauris vehicula rutrum dui, vel consectetur odio ornare a. ",
         synopsis: `Praesent non odio eget leo finibus iaculis. Mauris vehicula rutrum dui, vel consectetur odio ornare a. Mauris lectus elit, interdum sed viverra sed, blandit eu eros. Etiam eget venenatis risus. Integer quis commodo nulla, eget porttitor quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus suscipit congue ligula quis egestas. Praesent eros nunc, pretium quis ex eget, sollicitudin laoreet massa.
         Vivamus porta nulla vel scelerisque interdum. Suspendisse aliquet justo convallis, porta quam et, vestibulum metus. Cras at varius purus, a egestas lectus. In tempus tellus quis metus lacinia auctor. Vestibulum lobortis, quam at pellentesque commodo, lacus urna lobortis enim, id semper massa orci nec libero. `,
-        cover: "#"
+        cover: "./images/minutes.jpg"
     },
     {
         title: "Death and What Comes Next",
